@@ -1,0 +1,24 @@
+<% week_end = ["Saturday", "Sunday"] %>
+
+<div class="container">
+
+  <% day = Date.parse(@date).strftime("%A, %d %b %Y")  %>
+  <h1><%= day %></h1>
+  <p><%= link_to 'Reload', new_path(params[:date]) %></p>
+
+  <div>
+    <% @day.matchs.each do |match| %>
+      <% if week_end.exclude?(day.split(',')[0]) %>
+        <% if match.hour.split(':')[0].to_i >=  17 %>
+          <h3><%= match.name %></h3>
+          <h5><%= match.hour %></h5><p><%= match.channel %></p>
+          <p><%= link_to 'Delete', match, method: :delete %></p>
+        <% end %>
+      <% elsif match.hour.split(':')[0].to_i >=  14 %>
+        <h3><%= match.name %></h3>
+        <h5><%= match.hour %></h5><p><%= match.channel %></p>
+        <p><%= link_to 'Delete', match, method: :delete %></p>
+      <% end %>
+    <% end %>
+</div>
+
